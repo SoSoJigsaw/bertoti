@@ -1,6 +1,6 @@
 # Ciclo de vida de desenvolvimento de software
 
-# - Diagrama de Classes
+# - Diagrama de casos de uso
 ![aluno](https://github.com/SoSoJigsaw/bertoti/blob/main/Engenharia%20de%20Software/Atividade%201/Imagens/1.1%20Diagrama%20Aluno.png)
 ![professor](https://github.com/SoSoJigsaw/bertoti/blob/main/Engenharia%20de%20Software/Atividade%201/Imagens/2%20Diagrama%20Professor.png)
 
