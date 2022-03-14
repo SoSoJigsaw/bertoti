@@ -11,3 +11,6 @@
 ![wireframe1](https://github.com/SoSoJigsaw/bertoti/blob/main/Engenharia%20de%20Software/Atividade%201/Imagens/3%20Wireframe1.png)
 ![wireframe2](https://github.com/SoSoJigsaw/bertoti/blob/main/Engenharia%20de%20Software/Atividade%201/Imagens/4%20Wireframe2.png)
 ![wireframe3](https://github.com/SoSoJigsaw/bertoti/blob/main/Engenharia%20de%20Software/Atividade%201/Imagens/5%20Wireframe3.png)
+
+# - Diagrama de Classes
+![classes](https://github.com/SoSoJigsaw/bertoti/blob/main/Engenharia%20de%20Software/Atividade%201/Imagens/7.%20Diagrama%20de%20Classes.png)
