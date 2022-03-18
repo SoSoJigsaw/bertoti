@@ -3,7 +3,7 @@ import java.util.List;
 import java.io.*;
 
 
-public class PlataformaEnsino {
+public class PlataformaDeEnsino {
 	
 	private List<Pessoa> pessoas = new LinkedList<Pessoa>();
 	private List<Disciplina> disciplinas = new LinkedList<Disciplina>();
@@ -12,7 +12,7 @@ public class PlataformaEnsino {
 		pessoas.add(pessoa);
 	}
 	
-	public List<Pessoa> getPessoas(){
+	public List<Pessoa> getPessoas() {
 		return pessoas;
 	}
 	
