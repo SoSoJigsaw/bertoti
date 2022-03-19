@@ -12,8 +12,8 @@ public class Professor {
 			return disciplina;
 		}
 		
-		public void setDisciplina(String novoDisciplina) {
-			disciplina = novoDisciplina;
+		public void setDisciplina(String novaDisciplina) {
+			disciplina = novaDisciplina;
 		}
 		
 		public String getCurso() {
