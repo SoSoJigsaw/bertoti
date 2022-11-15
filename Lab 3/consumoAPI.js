@@ -78,10 +78,10 @@ async function jsMostrarInfosFilme(infos) {
     </div>
     <div class="filme-infos">
         <h3 class="filme-titulo">${infos.Title}</h3>
-        <span id=${movieIDkey} class="hide movie-key">${movieIDkey}</span>
+        <span id=${movieIDkey} class="hide chave-filme">${movieIDkey}</span>
         <p class="avaliacao"><i class="fa-sharp fa-solid fa-star"></i></<b>${infos.imdbRating}</b></p>
-        <button class="card-btn card-watchlist watchlist-btn" id="${watchlistBtnKey}" onclick="addToWatchlist(${movieIDkey}, ${movieID}, ${watchlistBtnKey}, ${removeBtnKey})"><i class="fa-solid fa-circle-plus"></i></button>
-        <button class="card-btn card-watchlist remove-watchlist-btn" id="${removeBtnKey}" onclick="removeFromWatchlist(${movieIDkey}, ${removeBtnKey}, ${watchlistBtnKey}, ${removeBtnKey})"><i class="fa-solid fa-circle-minus"></i></button> 
+        <button class="card-btn card-watchlist watchlist-btn" id="${watchlistBtnKey}" onclick="adicionarMinhaLista(${movieIDkey}, ${movieID}, ${watchlistBtnKey}, ${removeBtnKey})"><i class="fa-solid fa-circle-plus"></i></button>
+        <button class="card-btn card-watchlist remove-watchlist-btn" id="${removeBtnKey}" onclick="removerMinhaLista(${movieIDkey}, ${removeBtnKey}, ${watchlistBtnKey}, ${removeBtnKey})"><i class="fa-solid fa-circle-minus"></i></button> 
         <ul class="ano-duracao-info">
             <li class="ano"><b>Ano:</b> ${infos.Year}</li>
             <li class="duracao"><b>Duração:</b> ${infos.Runtime}</li>
@@ -96,7 +96,7 @@ async function jsMostrarInfosFilme(infos) {
     </div>
     `;
 
-    displayWatchlistOrRemoveBtn(movieIDkey)
+    removerBotoes(movieIDkey)
 }
 
 
