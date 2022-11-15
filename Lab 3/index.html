@@ -11,13 +11,13 @@
 <body>
     
     <div class="wrapper">
-        <!-- logo da IMDbSearch -->
-        <div class="logo">
+        <!-- Acesso ao watchlist e visualização do logo da IMDbSearch -->
+        <div class="header">
             <div class="container">
                 <img src="ImdbSearch.png">
+                <a href="minhalista.html" class="lista-filmes-assistir"><i class="fa-solid fa-heart"></i><b>Minha Lista</b></a>
             </div>
         </div>
-        <!-- fim da logo IMDbSearch -->
 
         <!-- Container de pesquisa -->
         <div class="container-pesquisa">
@@ -32,7 +32,7 @@
         <!-- Container de resultado -->
         <div class="container">
             <div class="container-resultado">
-                <div class="grade-resultado" id="grade-resultado"></div>
+                <div class="grade-resultado"></div>
             </div>
         </div>
         <!-- fim do container de resultado -->
@@ -40,5 +40,6 @@
 
 
     <script src="consumoAPI.js"></script>
+    <script src="minhaLista.js"></script>
 </body>
 </html>
