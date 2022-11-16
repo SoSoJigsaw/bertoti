@@ -1,8 +1,8 @@
-const watchlist = document.getElementById('watchlist')
-const removeWatchlistBtn = document.getElementsByClassName('remove-watchlist-btn')
-const cardWatchlistBtn = document.getElementsByClassName('watchlist-btn')
 const chaveFilme = document.getElementsByClassName('chave-filme')
 const ChaveslocalStorage = Object.keys(localStorage)
+const botaoRemover = document.getElementsByClassName('botao-remover')
+const botaoAdicionar = document.getElementsByClassName('botao-adicionar')
+const minhaLista = document.getElementById('minha-lista')
 
 
 // Função que remove o botão de tirar da lista caso o filme não esteja na lista,
@@ -41,7 +41,7 @@ function adicionarMinhaLista(idChaveFilme, idFilme, chaveMinhaListaBotao, chaveB
 function removerMinhaLista(idChaveFilme, chaveBotaoRemover, chaveMinhaListaBotao, chaveBotaoRemover) {
     localStorage.removeItem(idChaveFilme.innerHTML)
 
-    if (watchlist) {
+    if (minhaLista) {
         localStorage.removeItem(idChaveFilme.innerHTML)
 
         const apagarGrade = document.getElementById(idChaveFilme.innerHTML + 'Grade')
@@ -55,9 +55,9 @@ function removerMinhaLista(idChaveFilme, chaveBotaoRemover, chaveMinhaListaBotao
     chaveBotaoRemover.style.display = 'none'
 
     // Mostrar os elementos default do html se o local storage estiver vazio
-    if (watchlist && localStorage.length === 0) {
-        if (watchlist.children) {
-            const children = watchlist.children
+    if (minhaLista && localStorage.length === 0) {
+        if (minhaLista.children) {
+            const children = minhaLista.children
             const childrenArr = Array.prototype.slice.call(children)
             childrenArr.forEach((child) => (child.style.display = 'flex'))
         }
@@ -65,9 +65,9 @@ function removerMinhaLista(idChaveFilme, chaveBotaoRemover, chaveMinhaListaBotao
 }
 
 // Esconder os elmentos default do html se houver dados no local storage
-if (watchlist && localStorage.length > 0) {
-    if (watchlist.children) {
-        const children = watchlist.children
+if (minhaLista && localStorage.length > 0) {
+    if (minhaLista.children) {
+        const children = minhaLista.children
         const childrenArr = Array.prototype.slice.call(children)
         childrenArr.forEach((child) => (child.style.display = 'none'))
     }
@@ -77,17 +77,16 @@ for (let i = 0; i < localStorage.length; i++) {
     const getLocalStorage = localStorage.getItem(localStorage.key(i))
 
     // Mostrar todos as chaves salvas no local storage na minha lista
-    if (watchlist) {
-        watchlist.innerHTML += `<div class="card">${getLocalStorage}</div>`
+    if (minhaLista) {
+        minhaLista.innerHTML += `<div class="card">${getLocalStorage}</div>`
 
         // Esconder o botão de adicionar a minha lista
-        for (let button of cardWatchlistBtn) {
-            button.style.display = 'none'
+        for (let botao of botaoAdicionar) {
+            botao.style.display = 'none'
         }
         // Mostrar o botão de tirar da minha lista
-        for (let button of removeWatchlistBtn) {
-            button.style.display = 'inline'
+        for (let botao of botaoRemover) {
+            botao.style.display = 'inline'
         }
     }
 }
-

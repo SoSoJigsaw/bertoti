@@ -142,7 +142,7 @@ img {
     padding-top: 80px;
 }
 
-.watchlist-btn {
+.botao-adicionar {
     background-color: var(--off-white);
     display: inline-block;
     padding-left: 15px;
@@ -151,12 +151,12 @@ img {
     width: auto;
 }
 
-.watchlist-btn i {
+.botao-adicionar i {
     color: var(--azul-profundo);
     font-size: 40px;
 }
 
-.remove-watchlist-btn {
+.botao-remover {
     background-color: var(--off-white);
     display: inline-block;
     padding-left: 15px;
@@ -165,7 +165,7 @@ img {
     width: auto;
 }
 
-.remove-watchlist-btn i {
+.botao-remover i {
     color: var(--azul-profundo);
     font-size: 40px;
 }

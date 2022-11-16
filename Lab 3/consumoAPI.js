@@ -42,7 +42,7 @@ function jsMostrarListaFilmes(titulos) {
         if(titulos[n].Poster != "N/A")
             filmePoster = titulos[n].Poster;
         else 
-            filmePoster = "image_not_found.png";
+            filmePoster = "sem_imagem.gif";
 
         elementoListaPesquisa.innerHTML = `
         <div class = "item-pesquisa-poster">
@@ -62,26 +62,26 @@ function jsMostrarListaFilmes(titulos) {
 // Function que gera divs HTML com as informações do filme retornadas pela API
 async function jsMostrarInfosFilme(infos) {
 
-    const movieID = infos.imdbID
-    const movieIDkey = infos.imdbID + 'key'
-    const watchlistBtnKey = infos.imdbID + 'watchlistBtn'
-    const removeBtnKey = infos.imdbID + 'removeBtn'
+    const idFilme = infos.imdbID
+    const idChaveFilme = infos.imdbID + 'key'
+    const chaveMinhaListaBotao = infos.imdbID + 'watchlistBtn'
+    const chaveBotaoRemover = infos.imdbID + 'removeBtn'
 
     resultadoContainer = document.getElementsByClassName("container-resultado")[0]
-    resultadoContainer.id = movieID;
+    resultadoContainer.id = idFilme;
 
-    gradeResultado.id = movieIDkey + 'Grade'
+    gradeResultado.id = idChaveFilme + 'Grade'
 
     gradeResultado.innerHTML = `
     <div class="filme-poster">
-        <img src="${(infos.Poster != "N/A") ? infos.Poster : "image_not_found.png"}" alt="filme poster">
+        <img src="${(infos.Poster != "N/A") ? infos.Poster : "sem_imagem.gif"}" alt="filme poster">
     </div>
     <div class="filme-infos">
         <h3 class="filme-titulo">${infos.Title}</h3>
-        <span id=${movieIDkey} class="hide chave-filme">${movieIDkey}</span>
+        <span id=${idChaveFilme} class="hide chave-filme">${idChaveFilme}</span>
         <p class="avaliacao"><i class="fa-sharp fa-solid fa-star"></i></<b>${infos.imdbRating}</b></p>
-        <button class="card-btn card-watchlist watchlist-btn" id="${watchlistBtnKey}" onclick="adicionarMinhaLista(${movieIDkey}, ${movieID}, ${watchlistBtnKey}, ${removeBtnKey})"><i class="fa-solid fa-circle-plus"></i></button>
-        <button class="card-btn card-watchlist remove-watchlist-btn" id="${removeBtnKey}" onclick="removerMinhaLista(${movieIDkey}, ${removeBtnKey}, ${watchlistBtnKey}, ${removeBtnKey})"><i class="fa-solid fa-circle-minus"></i></button> 
+        <button class="botao-adicionar" id="${chaveMinhaListaBotao}" onclick="adicionarMinhaLista(${idChaveFilme}, ${idFilme}, ${chaveMinhaListaBotao}, ${chaveBotaoRemover})"><i class="fa-solid fa-circle-plus"></i></button>
+        <button class="botao-remover" id="${chaveBotaoRemover}" onclick="removerMinhaLista(${idChaveFilme}, ${chaveBotaoRemover}, ${chaveMinhaListaBotao}, ${chaveBotaoRemover})"><i class="fa-solid fa-circle-minus"></i></button> 
         <ul class="ano-duracao-info">
             <li class="ano"><b>Ano:</b> ${infos.Year}</li>
             <li class="duracao"><b>Duração:</b> ${infos.Runtime}</li>
@@ -96,7 +96,7 @@ async function jsMostrarInfosFilme(infos) {
     </div>
     `;
 
-    removerBotoes(movieIDkey)
+    removerBotoes(idChaveFilme)
 }
 
 
