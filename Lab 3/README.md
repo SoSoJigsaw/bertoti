@@ -1,7 +1,8 @@
 # Laboratório de Desenvolvimento III
 
-### Nome: Felipe Sobral
-### RA: 1460282123039
+## Nome: Felipe Sobral
+## RA: 1460282123039
+
 
 ### Sobre a aplicação:
 - "IMDB Search" é um site de pesquisa de filmes cadastrados no banco do IMDB, no qual possibilita a pesquisa do filme desejado e, assim, visualizar os dados referentes ao mesmo.
