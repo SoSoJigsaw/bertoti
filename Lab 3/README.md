@@ -11,5 +11,10 @@
 
 ### Uso:
 1- Digite um termo, e será retornado os filmes correspondendes a pesquisa
+![gif1](https://github.com/SoSoJigsaw/bertoti/blob/main/Lab%203/imagens/gif1.gif)
+
 2- Selecione um filme, e então os dados do mesmo serão apresentados
+![gif2](https://github.com/SoSoJigsaw/bertoti/blob/main/Lab%203/imagens/gif2.gif)
+
 3- Adicione à Watchlist, armazenando assim em "Minha Lista" os dados do filme. Depois, pode-se excluir o filme da Watchlist se desejado
+![gif3](https://github.com/SoSoJigsaw/bertoti/blob/main/Lab%203/imagens/gif3.gif)
