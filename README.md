@@ -6,5 +6,7 @@ Banco de Dados, FATEC-SJC
 
 ## - Engenharia de Software
 ## - Laboratório de Desenvolvimento em Banco de Dados III
+## - Padrões de Projetos de Sistemas
+## - Metodologia da Pesquisa Científico Tecnológica
 
 
