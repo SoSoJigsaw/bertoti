@@ -8,3 +8,6 @@
 
 ## Observer
 ![UML Observer](https://github.com/SoSoJigsaw/bertoti/blob/main/DesignPattern/Observer/UML/Observer.jpg)
+
+## Composite
+![UML Composite](https://github.com/SoSoJigsaw/bertoti/blob/main/DesignPattern/Composite/UML/Composite.jpg)
