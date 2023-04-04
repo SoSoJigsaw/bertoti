@@ -2,7 +2,7 @@
 # Portfólio - Felipe Sobral
 
 <div align="center">
-<a href="#" target="_blank"><img style="margin: 10px" src="https://github.com/SoSoJigsaw/bertoti/blob/main/Metodologia/Imagens/profile.jpeg" alt="PostgreSQL" height="500" /></a>
+<a href="#" target="_blank"><img style="margin: 10px" src="https://github.com/SoSoJigsaw/bertoti/blob/main/Metodologia/Imagens/profile.jpeg" height="500" /></a>
 </div>
 
 ## Introdução
@@ -19,14 +19,14 @@ Ao longo da minha carreira acadêmica, tive experiência na resolução de probl
 ## Meus Principais Conhecimentos
 
 ### Python
-<div align="center"> 
-![python](https://profilinator.rishav.dev/skills-assets/python-original.svg)
+<div align="center">
+<a href="#" target="_blank"><img style="margin: 10px" src="https://profilinator.rishav.dev/skills-assets/python-original.svg" height="100" /></a>
 </div>
 Desenvolvo em Python desde 2021. Já utilizei a linguagem nos paradigmas procedural e orientado ao objeto. Utilizei o Python tanto para desenvolvimento web, utilizando para isso o microserviço Flask, quanto para análise e tratamento de dados, utilizando o Pandas e Numpy. Em alguns momentos, utilizei o Python também para automatizar processos, como alimentar o banco de dados com uma rotina usando SQLAlchemy para a conexão, e automatizar o processo de baixar uma base de dados disponibilizado em um site através de um script que usa Selenium para simular as ações em um navegador.
 
 ### Java
 <div align="center"> 
-![java](https://profilinator.rishav.dev/skills-assets/java-original-wordmark.svg)
+<a href="#" target="_blank"><img style="margin: 10px" src="https://profilinator.rishav.dev/skills-assets/java-original-wordmark.svg" height="100" /></a> 
 </div>
 
 Desenvolvo em Java desde 2022. Utilizei a linguagem principalmente para desenvolver o back-end de aplicações web, utilizando para isso o framework Spring Boot com o auxílio do Hibernate, e aplicações desktop, utilizando para isso o JavaFX.
@@ -42,7 +42,7 @@ Utilizo o PL/SQL desde 2022, já tendo contato com comandos DDL, DCL e DML da li
 
 ### SCRUM
 <div align="center">
-![scrum](https://www.kindpng.com/picc/m/53-539760_scrum-logo-hd-png-download.png)
+<a href="#" target="_blank"><img style="margin: 10px" src="https://www.kindpng.com/picc/m/53-539760_scrum-logo-hd-png-download.png" height="100" /></a>
 </div>
 Tenho contato com o SCRUM desde o primeiro semestre da faculdade, em 2021, sendo que desde então todos os projetos acadêmicos em que participei utilizaram essa metodologia ágil para o gerenciamento da equipe como requisito. Tive experiência como Scrum Master da equipe, onde assumi o posto de líder responsável por organizar a equipe e buscar soluções para as dificuldades apresentadas. Fui também Product Owner (PO) em duas oportunidades, sendo responsável pelo desenvolvimento do produto ao criar o backlog, e pelo diálogo com o cliente em busca de atender as suas necessidades.
 
@@ -50,7 +50,7 @@ Tenho contato com o SCRUM desde o primeiro semestre da faculdade, em 2021, sendo
 
 ## Parceiro Acadêmico: IACIT
 <div align="center">
-![iacit](https://forcaaerea.com.br/wp-content/uploads/2023/03/IACIT_LOGO.png)
+ <a href="#" target="_blank"><img style="margin: 10px" src="https://forcaaerea.com.br/wp-content/uploads/2023/03/IACIT_LOGO.png" height="100" /></a>
 </div>
 Projeto feito com a parceria da IACIT, uma empresa de São José dos Campos que presta consultoria meteorológica, sendo que um de seus serviços atuais é fornecer aos clientes relatórios customizados de dados meteorológicos.
 
@@ -64,13 +64,13 @@ Dessa forma, o projeto visava desenvolver uma aplicação web para a empresa que
 
 ### HTML5 / CSS3 / Javascript (EC6)
 <div align="center">
-![front](https://www.pngfind.com/pngs/m/683-6834215_html-css-js-icon-hd-png-download.png) 
+ <a href="#" target="_blank"><img style="margin: 10px" src="https://www.pngfind.com/pngs/m/683-6834215_html-css-js-icon-hd-png-download.png" height="100" /></a>
 </div>
 O front-end da aplicação foi desenvolvida em HTML para marcação de hipertexto, CSS3 para estilização da página, e Javascript (EC6) para utilização do AJAX, permitindo assim enviar e receber dados assincronamente do servidor web e evitar o recarregamento da página inteira sem a necessidade de uma nova solicitação, também para criar paginação personalizada, utilizar jsPDF para a geração de PDFs dos gráficos, e enviar variáveis ao servidor por requisições GET através da url da página.
 
 ### Spring Boot
 <div align="center">
-![spring](https://quintagroup.com/cms/python/images/sqlalchemy-logo.png/@@images/eca35254-a2db-47a8-850b-2678f7f8bc09.png)
+ <a href="#" target="_blank"><img style="margin: 10px" src="https://quintagroup.com/cms/python/images/sqlalchemy-logo.png/@@images/eca35254-a2db-47a8-850b-2678f7f8bc09.png" height="100" /></a>
 </div>
 O back-end da aplicação web foi realizada através do Spring Boot, onde foi definida toda a estrutura do projeto do lado servidor, criando para isso os packages controller, dto, modal, report, repository e service. Os controllers foram criados para gerenciar os endpoints e definir suas lógicas, o dto e o modal foram criados para mapear as entidades do banco de dados na aplicação, o report foi para definir classes que contém a lógica de criação dos PDFs que posteriormente seriam acessados em determinados endpoints dos controllers, o repository foi usado para criar interfaces que estendem o JpaRepository para declarar querys que serão utilizadas na lógica dos controllers, e o service foi usado para conter classes que encapsulam a lógica de negócios da aplicação e para expor serviços que podem ser acessados pelos controllers, como as ações de deletar e atualizar usuário ou a validação do login por um usuário.
 
@@ -83,7 +83,7 @@ O Python foi utilizado para analisar e tratar os dados meteorológicos que seria
 
 ### PostgreSQL
 <div align="center">
-![postgre](https://profilinator.rishav.dev/skills-assets/postgresql-original-wordmark.svg)
+ <a href="#" target="_blank"><img style="margin: 10px" src="https://profilinator.rishav.dev/skills-assets/postgresql-original-wordmark.svg" height="100" /></a>
 </div>
 O PostgreSQL foi o SGBD escolhido para a criação do banco de dados exigido no projeto. Através dele, foi feita toda a modelagem e administração do banco, que foi responsável por armazenar todos os dados meteorológicos que foram utilizados para o dashboard da aplicação e para o CRUD de usuários. Além da criação das tabelas e constraints, e inserts realizados, a aplicação necessitou do uso de views que limitavam o acesso aos dados pelo usuário final, triggers para permitir a criação de uma tabela de auditoria que faz um controle de todas as modificações realizadas por um usuário nas tabelas de interesse, e a criação de índices para as tabelas para melhorar o desempenho de consultas, redução de tempo de resposta, otimização da utilização de memória e, por fim, trazer melhorias em operações de junção, que foram muito utilizadas no projeto.
 
