@@ -99,7 +99,7 @@ Ainda no back-end, fui responsável por gerar os relatórios em PDF dos dados me
 
 No front-end, eu ajudei em partes na estilização das páginas. No entanto, fui responsável por criar o método que gerava o PDF dos gráficos. Para isso, eu usei uma biblioteca do JavaScript chamada jsPDF, que estilizou o PDF e incluiu o gráfico nele, gráfico esse que foi convertido de elemento canvas HTML em um arquivo de imagem PNG. 
 
-### 1.Script de automação do povoamento do banco
+### 1. Script de automação do povoamento do banco
 
 #### automação.py
 
@@ -783,7 +783,7 @@ Depois que o download é concluído, a função leitura_cabecalho() da instânci
 
 Cada etapa do processo é impressa na tela para que o usuário saiba em que parte do script o processo se encontra.
 
-### 2.Criação de Relatórios PDF
+### 2. Criação de Relatórios PDF
 Foi um arquivo criado para cada variável meteorológica, mas todos seguiram a mesma lógica. Por isso, utilizarei apenas o de Precipitação para ilustrar o que foi feito.
 
 #### PdfPrecipitacao.java
@@ -920,7 +920,7 @@ return new ByteArrayInputStream(out.toByteArray());
 ```
 O documento PDF é aberto e são adicionados ao mesmo uma imagem, parágrafos com informações da estação meteorológica, período de dados coletados e o título do relatório, que é "Precipitação". O documento é fechado e retornado como um objeto ByteArrayInputStream para que possa ser manipulado posteriormente.
 
-### 3.Método para enviar o relatório à aplicação
+### 3. Método para enviar o relatório à aplicação
 
 ```java
 @GetMapping(value = "/Precipitacao/pdf/{estNome}/{estEstado}/{estDTinicial}/{estDTfinal}", produces = MediaType.APPLICATION_PDF_VALUE)
@@ -988,7 +988,7 @@ Em seguida, o método utiliza um objeto PdfPrecipitacao (o código anterior) par
 
 Por fim, são definidos os cabeçalhos HTTP e os metadados do arquivo PDF, e o InputStreamResource é retornado no objeto ResponseEntity. O arquivo PDF é então baixado pelo cliente em seu navegador com o nome de arquivo especificado nos cabeçalhos HTTP.
 
-### 4.Geração de PDFs dos gráficos
+### 4. Geração de PDFs dos gráficos
 
 #### downloadPDF.js
 
