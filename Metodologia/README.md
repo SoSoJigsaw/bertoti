@@ -2,7 +2,7 @@
 # Portfólio - Felipe Sobral
 
 <div align="center">
-![profile](https://github.com/SoSoJigsaw/bertoti/blob/main/Metodologia/Imagens/profile.jpeg)
+<a href="#" target="_blank"><img style="margin: 10px" src="https://github.com/SoSoJigsaw/bertoti/blob/main/Metodologia/Imagens/profile.jpeg" alt="PostgreSQL" height="100" /></a>
 </div>
 
 ## Introdução
@@ -11,8 +11,8 @@ Estudante no 4º semestre em tecnologia de Banco de Dados pela FATEC de São Jos
 
 Ao longo da minha carreira acadêmica, tive experiência na resolução de problemas reais semestralmente por meio de uma metodologia de aprendizado própria da FATEC (a API), que utiliza metodologias ágeis (SCRUM), com validação externa por empresas parceiras, através das tecnologias Python, Java e SQL (Oracle, SQL Server e PostgreSQL). 
 
-[![portfolio](https://img.shields.io/badge/my_portfolio-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://github.com/SoSoJigsaw)
 
+[![portfolio](https://img.shields.io/badge/my_portfolio-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://github.com/SoSoJigsaw)
 [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/sosojigsaw/)
 
 
