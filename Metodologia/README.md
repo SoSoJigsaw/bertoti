@@ -2,7 +2,7 @@
 # Portfólio - Felipe Sobral
 
 <div align="center">
-<a href="#" target="_blank"><img style="margin: 10px" src="https://github.com/SoSoJigsaw/bertoti/blob/main/Metodologia/Imagens/profile.jpeg" alt="PostgreSQL" height="100" /></a>
+<a href="#" target="_blank"><img style="margin: 10px" src="https://github.com/SoSoJigsaw/bertoti/blob/main/Metodologia/Imagens/profile.jpeg" alt="PostgreSQL" height="500" /></a>
 </div>
 
 ## Introdução
