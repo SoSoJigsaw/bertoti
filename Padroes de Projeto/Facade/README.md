@@ -1,7 +1,7 @@
 # Facade
 
 ## Exemplo realizado
-- <b>Representação de documentos:</b> um documento pode ser representado como uma estrutura de árvore (sendo então a interface Component), com seções, parágrafos e frases sendo objetos Composites e palavras sendo objetos Leaf. Isso permite que o Cliente navegue facilmente pelos documentos e os editem como um todo ou em partes. 
+- <b>Sistema de arquivos:</b> o sistema de arquivos do computador é um subsistema complexo, com muitas operações diferentes, como criar, ler, gravar e excluir arquivos. Em vez de expor todas essas operações aos clientes diretamente, podemos criar uma Facade que forneça uma maneira simplificada para as operações mais comuns.
 
 ## Diagrama de Classes
 ![UML Facade]()
