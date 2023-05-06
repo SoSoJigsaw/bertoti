@@ -13,7 +13,7 @@
 ![UML Composite](https://github.com/SoSoJigsaw/bertoti/blob/main/Padroes%20de%20Projeto/Composite/UML/Composite.jpg)
 
 ## Singleton
-![UML Singleton]()
+![UML Singleton](https://github.com/SoSoJigsaw/bertoti/blob/main/Padroes%20de%20Projeto/Singleton/UML/Singleton.jpg)
 
 ## Facade
 ![UML Facade]()
