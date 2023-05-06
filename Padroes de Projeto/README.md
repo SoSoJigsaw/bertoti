@@ -11,3 +11,12 @@
 
 ## Composite
 ![UML Composite](https://github.com/SoSoJigsaw/bertoti/blob/main/Padroes%20de%20Projeto/Composite/UML/Composite.jpg)
+
+## Singleton
+![UML Singleton]()
+
+## Facade
+![UML Facade]()
+
+## Combining Patterns
+![UML Combining Patterns]()
