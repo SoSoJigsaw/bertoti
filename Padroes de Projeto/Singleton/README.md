@@ -1,7 +1,7 @@
 # Singleton
 
 ## Exemplo realizado
-- <b>Representação de documentos:</b> um documento pode ser representado como uma estrutura de árvore (sendo então a interface Component), com seções, parágrafos e frases sendo objetos Composites e palavras sendo objetos Leaf. Isso permite que o Cliente navegue facilmente pelos documentos e os editem como um todo ou em partes. 
+- <b>Configuração de banco de dados:</b> uma classe de configuração de banco de dados que é responsável por se conectar ao banco de dados. Para garantir que apenas uma instância dessa classe seja criada, é utilizado o Singleton. 
 
 ## Diagrama de Classes
 ![UML Singleton]()
