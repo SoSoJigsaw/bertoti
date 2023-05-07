@@ -1,3 +1,7 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 public class MyApp {
     public static void main(String[] args) {
         // obter a instância única da classe DatabaseConfiguration
