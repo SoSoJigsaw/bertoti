@@ -19,4 +19,4 @@
 - O padrão Facade será utilizado para fornecer uma interface simplificada para as funcionalidades da aplicação. A classe TaskFacade será a Facade da aplicação, fornecendo métodos para adicionar, remover e ordenar tarefas.
 
 ## Diagrama de Classes
-![UML Combining Patterns]()
+![UML Combining Patterns](https://github.com/SoSoJigsaw/bertoti/blob/main/Padroes%20de%20Projeto/Combining%20Patterns/UML/Patterns.jpg)
