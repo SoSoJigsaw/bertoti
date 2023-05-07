@@ -1,7 +1,7 @@
 # Combining Patterns
 
 ## Exemplo realizado
-- <b>O projeto em questão é uma aplicação de gerenciamento de tarefas.</b> 
+- <b>O projeto em questão é uma aplicação de gerenciamento de tarefas.</b>  
 
 ### Strategy
 - O padrão Strategy será utilizado para implementar diferentes estratégias de ordenação das tarefas. Cada estratégia será uma classe que implementa uma interface com um método para ordenar as tarefas. O cliente da aplicação pode escolher qual estratégia utilizar para ordenar as tarefas.
