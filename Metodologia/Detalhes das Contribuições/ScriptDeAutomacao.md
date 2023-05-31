@@ -1,12 +1,13 @@
 # Script de automação do povoamento do banco
 
+<a name="voltar"></a>
 [1. automacão.py](#automacao)
+[2. leituraDfs.py](#leituraDfs)
+[3. cleaningData.py](#cleaningData)
+[4. cabeçalho.py](#cabecalho)
+[5. conexaoBD.py](#conexaoBD)
+[6. runFunctions.py](#runFunctions)
 
-<a name="leituraDfs">2. leituraDfs.py</a>
-<a name="cleaningData">3. cleaningData.py</a>
-<a name="cabecalho">4. cabeçalho.py</a>
-<a name="conexaoBD">5. conexaoBD.py</a>
-<a name="runFunctions">6. runFunctions.py</a>
 
 <a name="automacao"></a>
 ## automação.py
@@ -62,8 +63,10 @@ def extract(self, ano: int):
     return
 ```
 O método `extract` é responsável por extrair o arquivo zip baixado anteriormente para o diretório especificado. Ele usa o módulo `zipfile` para abrir o arquivo zip.
+[Voltar ao topo](#voltar)
 
 
+<a name="leituraDfs"></a>
 ## leituraDfs.py
 
 ```python
@@ -125,6 +128,7 @@ O método `tratamento_dfs(df)` recebe um DataFrame como entrada e retorna o Data
 
 Os DataFrames tratados são povoados no banco de dados por meio dos métodos `povoar_banco(df.getRad(), 'radiacao_global')`, `povoar_banco(df.getPrecip(), 'precipitacao')`, `povoar_banco(df.getVento(), 'vento')`, `povoar_banco(df.getAtm(), 'pressao_atmosferica')`, `povoar_banco(df.getTemp(), 'temperatura')` e `povoar_banco(df.getUmi(), 'umidade')`, que recebem o DataFrame tratado e o nome da tabela no banco de dados que será populada.
 
+<a name="cleaningData"></a>
 ## cleaningData.py
 O cleaningData.py é um módulo que contém uma classe CleaningData que possui métodos para tratamento de dados em um DataFrame.
 
@@ -322,8 +326,10 @@ return dfFiltrado
 ```
 
 O método `desmembrar_dfs()` recebe como parâmetro um objeto do tipo `DataFrame`, e então tem a função de desmembrá-lo em diversos DataFrames separados, salvando seus valores em atributos privados da classe que ele pertence, o `CleaningData()`. Isso é feito com a intenção de facilitar o processo de persintência dos dados no banco de dados quando esses atributos forem acessados pela classe de povoamento do banco de dados (`conexaoBD()`).
+[Voltar ao topo](#voltar)
 
 
+<a name="cabecalho"></a>
 ## cabeçalho.py
 
 ```python
@@ -417,8 +423,10 @@ dfEstacao.__estacao = df[['cod_wmo', 'estacao_nome', 'estacao_regiao', 'estacao_
 return dfEstacao
 ```
 O método `organizar_cabecalho` é chamado para organizar o DataFrame `df` de acordo com a tabela do banco de dados. O método recebe um objeto DataFrame `df` e cria um novo DataFrame `dfEstacao` com as colunas "cod_wmo", "estacao_nome", "estacao_regiao", "estacao_estado", "estacao_longitude", "estacao_latitude", "estacao_altitude" e "estacao_datafundacao". Em seguida, o DataFrame `dfEstacao` é retornado.
+[Voltar ao topo](#voltar)
 
 
+<a name="conexaoBD"></a>
 ## conexaoBD.py
 
 ```python
@@ -542,8 +550,10 @@ Em seguida, o método tenta inserir os dados da estação presentes em `df` na t
 Se houver uma violação de integridade na inserção dos dados na tabela (por exemplo, se já houver uma estação com o mesmo codigo_wmo na tabela), o método `to_sql` lançará uma exceção do tipo `IntegrityError`. Nesse caso, o método imprime uma mensagem de erro e passa para a próxima estação, sem interromper a execução do programa.
 
 Por fim, se ocorrer algum erro durante a execução do método, ele registra uma mensagem de erro no arquivo de log e relança a exceção para ser tratada em outro lugar do programa.
+[Voltar ao topo](#voltar)
 
 
+<a name="runFunctions"></a>
 ## runFunctions.py
 
 ```python
@@ -580,3 +590,6 @@ Então, a função `auto_run()` da classe `Automacao` é chamada, iniciando o pr
 Depois que o download é concluído, a função `leitura_cabecalho()` da instância `ldfs` é chamada para povoar a tabela de informações de cabeçalho do CSV no banco de dados para o ano de 2022. Em seguida, a função `leitura_dfs()` também da instância `ldfs` é chamada para povoar as tabelas de dados para o ano de 2022.
 
 Cada etapa do processo é impressa na tela para que o usuário saiba em que parte do script o processo se encontra.
+[Voltar ao topo](#voltar)
+
+
