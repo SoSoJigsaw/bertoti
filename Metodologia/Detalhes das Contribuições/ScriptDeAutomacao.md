@@ -2,10 +2,15 @@
 
 <a name="voltar"></a>
 [1. automacão.py](#automacao)
+
 [2. leituraDfs.py](#leituraDfs)
+
 [3. cleaningData.py](#cleaningData)
+
 [4. cabeçalho.py](#cabecalho)
+
 [5. conexaoBD.py](#conexaoBD)
+
 [6. runFunctions.py](#runFunctions)
 
 
