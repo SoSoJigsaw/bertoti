@@ -114,25 +114,43 @@ No front-end, eu ajudei em partes na estilização das páginas. No entanto, fui
 
 ## Aprendizados Efetivos
 
+
+### 1. Interação e persistência de dados com o banco de dados
 Nesse projeto, pela primeira vez trabalhei com códigos que interagem com banco de dados, o que se mostrou ser um desafio, mas foi uma oportunidade de eu melhorar as minhas habilidades de escrita de código, já que envolvia muitos detalhes e considerações. Dentro disso, tive que aprender a considerar questões de segurança e integridade dos dados, o que fez eu aprender mais sobre boas práticas de código nessa área, como a importância de validar dados de entrada e usar transações para garantir que as operações sejam concluídas com sucesso. Pude aprimorar também a minha soft skill de resolução de problemas e de depuração de erros, já que criar códigos que interagem com banco de dados podem apresentar vários desafios, desde questões de conectividade até erros de sintaxe SQL. Por fim, adquiri a habilidade de conectar com o banco de dados pelo Python, utilizando a biblioteca SQLAlchemy para isso, biblioteca essa que agora eu sei usar com propriedade.
 
 Além disso, tive que aprender novos conceitos e tecnologias para atingir os meus objetivos no projeto, o que contribuiu para o meu desenvolvimento como programador, sendo que nessa área o aprendizado é contínuo, já que a programação está sempre em constante evolução.
 
+
+### 2. Paradigma da Programação Orientada à Objetos através do Python 
 Trabalhei também pela primeira vez com programação orientada a objetos (POO) em python. Antes disso, o paradigma que eu usava nessa linguagem era a procedural. Agora, eu tenho autonomia de aplicar os conceitos de POO em Python, pois que nesse projeto eu trabalhei com classes e defini métodos e atributos para cada uma delas, demonstrando compreensão dos conceitos de encapsulamento, herança e polimorfismo. Além disso, apliquei o conceito de reusabilidade de código do POO, reduzindo redundâncias no código ao utilizar parâmetros nos métodos.
 
+
+### 3. Manipulação de arquivos e requisições no Python
 Aprendi também a ter autonomia na manipulação de arquivos dentro do Python. No código da classe Automacao, eu usei o módulo "os" para manipular diretórios e arquivos, o módulo "zipfile" para extrair arquivos zipados e o módulo "shutil" para excluir pastas e diretórios. 
 
 Ainda no código da classe Automacao, eu usei o módulo "requests" para fazer solicitações HTTP, o que mostra conhecimento em acessar recursos da web em Python. Além disso, baixei arquivos CSV e usei o módulo "pandas" para manipular esses dados, o que demonstra habilidades em manipulação de dados em formato CSV.
 
+
+### 4. Geração de logs e tratamento de exceções em Python
 Agora tenho também autonomia em gerar logs em Python, para registrar informações de erros e também de execuções bem-sucedidas em um arquivo .txt, permitindo que os demais desenvolvedores e usuários tenham acesso ao resultado de todas as etapas da execução do script. Esse aprendizado será útil para outros projetos que eu vir a fazer parte, e agrega à qualidade do código adicionar essa funcionalidade que permite o controle e depuração do comportamento de cada trecho do código. Junto ao log, adquiri conhecimento em tratamento de exceções, utilizando try e except para lidar com erros possíveis em cada método construído nos códigos. Além disso, eu usei o comando raise para lançar exceções personalizadas. 
 
+
+### 5.  Aprimoramento no tratamento e análise de dados usando Pandas
 Eu já tinha conhecimentos em tratamento e análise de dados utilizando Pandas, mas nesse projeto eu pude aprimorar minhas habilidades. Nos códigos de tratamento de dados, eu usei o módulo "pandas" para transformar e reorganizar dados de um dataframe. Renomeei colunas, tratei valores nulos, converti tipos de dados e reorganizei o dataframe de acordo com a tabela do banco de dados, o que demonstra habilidades em transformação de dados usando o Pandas.
 
+
+### 6. Manipulação de PDFs através do Java
 Aprendi a como criar e manipular PDFs a partir do Java, estiliza-lo da forma que eu quiser, e povoar o documento com dados variáveis através do uso de loop e de uma lista de objetos do Modal que retorna dados meteorológicos. Ou seja, aprendi através disso a utilizar o Modal para retornar os dados que necessito, e agora sei usar com propriedade essa ferramenta do Spring.
 
+
+### 7. Utilização efetiva da arquitetura MVC do SpringBoot, principalmente na criação de métodos no Controller
 Aprendi também a utilizar o Controller do Spring para criar métodos que faz requisições. Aprendi a utilizar anotações, como o "@GetMapping" para mapear uma requisição GET HTTP para o método "relatorioPrecipitacao" e definir a URL e os parâmetros da requisição. Também, aprendi a trabalhar com variáveis de caminho, usando a anotação "@PathVariable" para extrair os valores dos parâmetros da URL. Além disso, aprendi a usar retornos de resposta HTTP, ao utilizar a classe "ResponseEntity" para construir a resposta HTTP com o conteúdo do arquivo PDF gerado e os cabeçalhos configurados. 
 
+
+### 8. Manipulação de PDFs através do JavaScript e interação com elementos HTML canva
 Outrossim, aprendi a como criar e manipular PDFs a partir do JavaScript, estiliza-lo da forma que eu quiser, e então selecionar um canva HTML e convertê-lo à PNG e coloca-lo no documento. Consigo agora com propriedade gerar PDFs na linguagem e povoa-lo com qualquer objeto que for necessário.
 
+
+### 9. Considerações finais
 Em resumo, tive aprendizados técnicos importantes na utilização de anotações, manipulação de tipos de dados, iteração sobre listas, condicionais, e geração de arquivos PDF. Esses conhecimentos podem ser aplicados em outros projetos do Spring Boot e em outras linguagens de programação que eu venha fazer no futuro. Por fim, no caso do python, adquiri conhecimentos em orientação ao objeto, manipulação de arquivos, requests, Pandas, log e tratamento de exceções. 
 
