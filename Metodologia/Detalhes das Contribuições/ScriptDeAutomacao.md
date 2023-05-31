@@ -8,7 +8,7 @@
 <a name="conexaoBD">5. conexaoBD.py</a>
 <a name="runFunctions">6. runFunctions.py</a>
 
-<a name="automacao" style="font-size: 18px;">automação.py</a>
+<a name="automacao" style="font-size: 40px;">automação.py</a>
 
 ```python
 import os
