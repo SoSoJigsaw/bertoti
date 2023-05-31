@@ -143,7 +143,7 @@ Eu já tinha conhecimentos em tratamento e análise de dados utilizando Pandas, 
 Aprendi a como criar e manipular PDFs a partir do Java, estiliza-lo da forma que eu quiser, e povoar o documento com dados variáveis através do uso de loop e de uma lista de objetos do Modal que retorna dados meteorológicos. Ou seja, aprendi através disso a utilizar o Modal para retornar os dados que necessito, e agora sei usar com propriedade essa ferramenta do Spring.
 
 
-### 7. Utilização efetiva da arquitetura MVC do SpringBoot, principalmente na criação de métodos no Controller
+### 7. Utilização efetiva da arquitetura MVC do SpringBoot, principalmente na criação de métodos de requisição
 Aprendi também a utilizar o Controller do Spring para criar métodos que faz requisições. Aprendi a utilizar anotações, como o "@GetMapping" para mapear uma requisição GET HTTP para o método "relatorioPrecipitacao" e definir a URL e os parâmetros da requisição. Também, aprendi a trabalhar com variáveis de caminho, usando a anotação "@PathVariable" para extrair os valores dos parâmetros da URL. Além disso, aprendi a usar retornos de resposta HTTP, ao utilizar a classe "ResponseEntity" para construir a resposta HTTP com o conteúdo do arquivo PDF gerado e os cabeçalhos configurados. 
 
 
