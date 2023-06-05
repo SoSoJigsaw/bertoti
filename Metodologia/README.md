@@ -95,19 +95,133 @@ Em grande parte do projeto eu trabalhei no back-end da aplicação, e em alguns 
 
 
 ### 1. Script de Automação do povoamento do banco 
-No back-end, fui responsável por criar um script no Python que recebia os dados meteorológicos de uma base de dados disponibilizado em um servidor web através de um request, toda vez que o script era executado ele fazia o request e verificava se havia novos dados para serem baixados. Se houvesse novos dados, ele os baixava para um diretório reservado do projeto. Depois, o script acessava em loop todos os dados baixados no diretório e fazia o tratamento deles utilizando Pandas, mudando seus tipos e formatação de forma que depois de tratados estivessem em um formato adequado à lógica das tabelas do banco de dados criado. Assim que terminava o tratamento desses dados, os dataframes eram enviados à outro método que por loop fazia a rotina de enviar esses dados ao banco de dados, fazendo inserts nas tabelas devidas, usando para isso o SQLAlchemy para criar a conexão com o banco e utilizar comandos de SQL puro dentro do Python. Essa rotina incluía tratamento de erros, evitando a duplicação de dados no banco, redundância, e quebra de constraints de chave primária. O script foi otimizado, permitindo que a tentativa de envio de dados ao banco, ou seja, a execução do comando SQL, só acontecesse caso o dataframe trouxesse novos dados, e assim o script terminava a sua execução em questão de minutos, mesmo tendo que lidar com arquivos CSVs que continham mais de quinze mil linhas cada um. Como cada CSV correspondia a uma estação meterológica, e os dados trabalhados deveriam ser de 2020 a 2022, a quantidade de arquivos chegava a novecentos, cada um com quinze mil linhas. Por fim, o script necessitava ser executado periodicamente a pedido do cliente, assim como o cliente não tinha interesse por executar ele próprio o script, portanto eu criei uma rotina que executava automaticamente o script uma vez por semana, utilizando para isso o Windows Task Scheduler, que executava um arquivo Shell Script contendo o script python.
+No back-end, fui responsável por: 
+- criar um script no Python que recebia os dados meteorológicos de uma base de dados disponibilizado em um servidor web através de um request, toda vez que o script era executado ele fazia o request e verificava se havia novos dados para serem baixados. Se houvesse novos dados, ele os baixava para um diretório reservado do projeto. 
+```python
+def download_df(self, ano: int):
+    url = "https://portal.inmet.gov.br/uploads/dadoshistoricos/{}.zip".format(ano)
+    endereco = os.path.join("DF","{}.zip".format(ano))
+    try:
+        os.mkdir("DF/{}".format(ano))   
+    except:
+        shutil.rmtree(f"DF/{ano}", ignore_errors=False, onerror=None)
+        os.mkdir("DF/{}".format(ano))
+    status = requests.get(url)
+    if status.status_code == requests.codes.OK:
+        with open(endereco, "wb") as novo_arquivo:
+            novo_arquivo.write(status.content) 
+    else:
+        status.raise_for_status()
+    return
+```
+O método `download_df` é responsável por fazer o download do arquivo zip correspondente aos dados meteorológicos históricos do ano especificado pelo parâmetro `ano`. A variável `url` é criada para especificar a URL do arquivo zip no site do INMET. A variável `endereco` é criada para especificar o caminho completo onde o arquivo zip será salvo.
+
+Em seguida, o método tenta criar um diretório com o nome do ano especificado. Se o diretório já existir, ele é removido e criado novamente. Isso é feito para garantir que o diretório esteja vazio antes de salvar o arquivo zip.
+O método faz uma solicitação HTTP para baixar o arquivo zip e verifica se a solicitação foi bem sucedida (código 200 OK). Se sim, o conteúdo do arquivo é salvo no caminho especificado. Caso contrário, uma exceção é gerada para lidar com o erro.
+
+- O script acessava em loop todos os dados baixados no diretório e fazia o tratamento deles utilizando Pandas, mudando seus tipos e formatação de forma que depois de tratados estivessem em um formato adequado à lógica das tabelas do banco de dados criado. 
+```python
+def leitura_dfs(self, ano: str):
+
+        cbd = ConexaoBD()
+
+        cbd.conectar_banco()
+
+        try:
+
+            # Path dos dataframes
+            files = glob.glob(fr"C:\Users\**\Iacit\CSVs\DF\{ano}\*.csv", recursive=True)
+
+            i = 1
+            for f in files:
+                df = pd.read_csv(f, sep=';', encoding='latin-1', on_bad_lines='skip')
+                df1 = pd.read_csv(f, sep=';', encoding='latin-1', skiprows=[0, 1, 2, 3, 4, 5, 6, 7], on_bad_lines='skip')
+```
+Neste trecho do código, é definido a função `leitura_dfs` que recebe o ano como parâmetro. É criada uma instância da classe `ConexaoBD`. Depois, é chamado o método `conectar_banco` para realizar a conexão com o banco de dados. Em seguida, é definido o caminho dos arquivos CSV utilizando o método `glob.glob`. Iteramos sobre cada arquivo CSV no diretório, e lemos os dados utilizando a biblioteca `pandas`: o parâmetro `sep` define o separador utilizado no arquivo CSV, o parâmetro `encoding` define a codificação utilizada no arquivo CSV, e o parâmetro `on_bad_lines` define a ação a ser tomada caso ocorra algum erro na leitura do arquivo. No segundo `pd.read_csv`, foi definido que as primeiras 8 linhas serão puladas, pois que nelas não contêm dados relevantes.
+
+```python
+# Tratamento dos dados e povoamento do banco de dados
+                cleaningData = CleaningData()
+
+                df = cleaningData.tratamento_dfs(df)
+
+                cbd.povoar_banco(df.getRad(), 'radiacao_global')
+                cbd.povoar_banco(df.getPrecip(), 'precipitacao')
+```                
+O trecho `cleaningData = CleaningData()` cria uma instância da classe `CleaningData` para tratar os dados antes de serem povoados no banco de dados. 
+
+O método `tratamento_dfs(df)` recebe um DataFrame como entrada e retorna o DataFrame tratado. Esse tratamento envolve a remoção de linhas e colunas desnecessárias, a conversão de tipos de dados, a limpeza de valores faltantes e a renomeação de colunas.
+
+Os DataFrames tratados são povoados no banco de dados por meio dos métodos `povoar_banco(df.getRad(), 'radiacao_global')`, `povoar_banco(df.getPrecip(), 'precipitacao')`, `povoar_banco(df.getVento(), 'vento')`, `povoar_banco(df.getAtm(), 'pressao_atmosferica')`, `povoar_banco(df.getTemp(), 'temperatura')` e `povoar_banco(df.getUmi(), 'umidade')`, que recebem o DataFrame tratado e o nome da tabela no banco de dados que será populada.
+
+- Assim que terminava o tratamento desses dados, os dataframes eram enviados à outro método que fazia a rotina de enviar esses dados ao banco de dados, fazendo inserts nas tabelas devidas, usando para isso o SQLAlchemy para criar a conexão com o banco e utilizar comandos de SQL puro dentro do Python. Essa rotina incluía tratamento de erros, evitando a duplicação de dados no banco, redundância, e quebra de constraints de chave primária. O script foi otimizado, permitindo que a tentativa de envio de dados ao banco, ou seja, a execução do comando SQL, só acontecesse caso o dataframe trouxesse novos dados.
+
+```python
+def povoar_banco(self, df: DataFrame, tabela: str):
+
+try:
+
+conexaoBD = ConexaoBD()
+
+cod_wmo = df.loc[0][0]
+
+# Povoamento das tabelas
+
+sql = f"SELECT datahora_captacao FROM {tabela} WHERE cod_wmo='{cod_wmo}' ORDER BY " \
+
+f"datahora_captacao DESC LIMIT 1"
+
+try:
+
+df = df[~(df['datahora_captacao'] <= conexaoBD.getDb().execute(sql).scalar())]
+
+except TypeError:
+
+pass
+
+if not df.empty:
+
+df.to_sql(tabela, conexaoBD.getDb(), if_exists='append', index=False)
+
+print(f"Há atualizações nos dados da Estação {cod_wmo} em {tabela}")
+
+else:
+
+print(f"Não há atualizações nos dados da Estação {cod_wmo} em {tabela}")
+
+except:
+
+logging.debug("- ERRO: falha na tentativa de povoar o banco com os dados dos CSVs (CSVs/conexaoBD.py)")
+
+raise
+```
+
+O método `povoar_banco` é responsável por povoar a tabela de dados meteorológicos no banco de dados PostgreSQL com os dados contidos em um DataFrame `pandas`. Essa função recebe como parâmetros o DataFrame `df` que contém os dados a serem inseridos no banco de dados, e a string tabela que especifica o nome da tabela de destino no banco de dados.
+
+A função começa criando uma instância da classe `ConexaoBD`, que estabelece a conexão com o banco de dados. Em seguida, ela extrai o código WMO da primeira linha do DataFrame `df` e usa esse código para construir uma consulta SQL que recupera o registro mais recente da tabela especificada no banco de dados.
+
+Se a tabela não estiver vazia, a função compara a data/hora de captura dos dados do DataFrame com a data/hora do registro mais recente na tabela do banco de dados. Qualquer linha do DataFrame com uma data/hora de captura maior que a data/hora do registro mais recente na tabela é considerada uma nova atualização de dados e é inserida na tabela do banco de dados usando o método `to_sql` do `pandas`.
+
+Se não houver dados novos no DataFrame, a função imprime uma mensagem informando que não há atualizações para essa estação na tabela especificada.
+
+Caso ocorra uma exceção em qualquer ponto da execução da função, a exceção é capturada e uma mensagem de erro é registrada no log, informando que houve uma falha na tentativa de povoar o banco de dados com os dados do DataFrame. A exceção é então relançada para ser tratada por chamadores da função.
+
+
 
 [Veja mais detalhes](https://github.com/SoSoJigsaw/bertoti/blob/main/Metodologia/Detalhes%20das%20Contribui%C3%A7%C3%B5es/ScriptDeAutomacao.md)
 
 
 ### 2. Criação de Relatórios PDF
-Ainda no back-end, fui responsável por gerar os relatórios em PDF dos dados meteorológicos, que deveriam serem baixados dentro de um endpoint da aplicação Spring Boot. Para isso, utilizei a biblioteca iText do Java, e criei códigos no diretório “report” estilizando os relatórios e criando a lógica de recebimento dos dados que seriam printados no documento, que vinham de uma List do Modal de cada variável meteorológica. Por terem lógicas diferentes, foi criado um código para cada variável meteorológica. Depois, criei endpoints no controller de cada variável meteorológica onde recebia os parâmetros através da url dos dados requeridos no relatório, e então colocava esses parâmetros dentro da query do repository, criando uma variável com isso, e chamava o método criado no código do report, colocando como parâmetro a variável criada. Por fim, o método criava o PDF, que então no endpoint eu retornava o PDF. Ao acessar esse endpoint na aplicação, o download do PDF era realizado automaticamente.
+Ainda no back-end, fui responsável por gerar os relatórios em PDF dos dados meteorológicos, que deveriam serem baixados dentro de um endpoint da aplicação Spring Boot. Para isso: 
+- Utilizei a biblioteca iText do Java, e criei códigos no diretório “report” estilizando os relatórios e criando a lógica de recebimento dos dados que seriam printados no documento, que vinham de uma List do Modal de cada variável meteorológica. Por terem lógicas diferentes, foi criado um código para cada variável meteorológica. 
+- Depois, criei endpoints no controller de cada variável meteorológica onde recebia os parâmetros através da url dos dados requeridos no relatório, e então colocava esses parâmetros dentro da query do repository, criando uma variável com isso, e chamava o método criado no código do report, colocando como parâmetro a variável criada. Por fim, o método criava o PDF, que então no endpoint eu retornava o PDF. Ao acessar esse endpoint na aplicação, o download do PDF era realizado automaticamente.
 
 [Veja mais detalhes](https://github.com/SoSoJigsaw/bertoti/blob/main/Metodologia/Detalhes%20das%20Contribui%C3%A7%C3%B5es/RelatoriosPDF.md)
 
 
 ### 3. Geração de PDFs dos gráficos
-No front-end, eu ajudei em partes na estilização das páginas. No entanto, fui responsável por criar o método que gerava o PDF dos gráficos. Para isso, eu usei uma biblioteca do JavaScript chamada jsPDF, que estilizou o PDF e incluiu o gráfico nele, gráfico esse que foi convertido de elemento canvas HTML em um arquivo de imagem PNG. 
+No front-end, eu ajudei em partes na estilização das páginas. No entanto, fui responsável por criar o método que gerava o PDF dos gráficos. Para isso: 
+- eu usei uma biblioteca do JavaScript chamada jsPDF, que estilizou o PDF e incluiu o gráfico nele, gráfico esse que foi convertido de elemento canvas HTML em um arquivo de imagem PNG e possibilitou dentro do mesmo método o download em PDF 
 
 [Veja mais detalhes](https://github.com/SoSoJigsaw/bertoti/blob/main/Metodologia/Detalhes%20das%20Contribui%C3%A7%C3%B5es/PDFsGraficos.md)
 
