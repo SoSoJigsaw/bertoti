@@ -214,7 +214,60 @@ Caso ocorra uma exceção em qualquer ponto da execução da função, a exceç�
 ### 2. Criação de Relatórios PDF
 Ainda no back-end, fui responsável por gerar os relatórios em PDF dos dados meteorológicos, que deveriam serem baixados dentro de um endpoint da aplicação Spring Boot. Para isso: 
 - Utilizei a biblioteca iText do Java, e criei códigos no diretório “report” estilizando os relatórios e criando a lógica de recebimento dos dados que seriam printados no documento, que vinham de uma List do Modal de cada variável meteorológica. Por terem lógicas diferentes, foi criado um código para cada variável meteorológica. 
+
+```java
+for (ViewPrecipitacaoModal viewPrecipitacaoModal : viewPrecipitacaoModals) {
+
+//Povoando as células da tabela
+
+Font font = FontFactory.getFont(FontFactory.HELVETICA, 14, BaseColor.BLACK);
+Font fontDataHora = FontFactory.getFont(FontFactory.HELVETICA, 14, BaseColor.BLACK);
+
+PdfPCell cell;
+
+cell = new PdfPCell(new Phrase(new SimpleDateFormat("dd/MM/yyyy HH:mm").format(viewPrecipitacaoModal.getDatahoraCaptacao()), fontDataHora));
+table.addCell(cell);
+
+cell = new PdfPCell(new Phrase(viewPrecipitacaoModal.getPrecipitacaototal(), font));
+table.addCell(cell);
+
+}
+```
+Para cada objeto `ViewPrecipitacaoModal` na lista fornecida, são criadas linhas na tabela com as informações de data/hora e precipitação total correspondentes. Isso foi realizado utilizando um loop. Dessa forma, a tabela é preenchida com os dados advindos do tipo ViewPrecipitacaoModal, que é um parâmetro do método, fazendo com que o pdf seja povoado com dados. A tabela é estilizada alternando a cor de fundo e da borda das células, definindo uma cor para o cabeçalho e permitindo que ele se repita em todas as páginas do documento gerado, além de outras formatações realizadas, como a definição da fonte e seu tamanho, cor e tipo.
+
+
 - Depois, criei endpoints no controller de cada variável meteorológica onde recebia os parâmetros através da url dos dados requeridos no relatório, e então colocava esses parâmetros dentro da query do repository, criando uma variável com isso, e chamava o método criado no código do report, colocando como parâmetro a variável criada. Por fim, o método criava o PDF, que então no endpoint eu retornava o PDF. Ao acessar esse endpoint na aplicação, o download do PDF era realizado automaticamente.
+
+```java
+@GetMapping(value = "/Precipitacao/pdf/{estNome}/{estEstado}/{estDTinicial}/{estDTfinal}", produces = MediaType.APPLICATION_PDF_VALUE)
+
+public ResponseEntity<InputStreamResource> relatorioPrecipitacao (HttpServletResponse response, @PathVariable("estNome") String estNome, @PathVariable("estEstado") String estEstado, @PathVariable("estDTinicial") String estDTinicial, @PathVariable("estDTfinal") String estDTfinal) throws IOException {
+
+    List<ViewPrecipitacaoModal> precipitacao = precipitacaorepository.listRange(estEstado,estNome,Timestamp.valueOf(estDTinicial),Timestamp.valueOf(estDTfinal));
+
+    ByteArrayInputStream bis = PdfPrecipitacao.exportarPdfPrecipitacao(precipitacao);
+
+    HttpHeaders headers = new HttpHeaders();
+
+    headers.add("Content-Disposition", "attachment;filename=Relatório Precipitação " + estNome + "(" + new SimpleDateFormat("dd-MM-yyyy").format(precipitacao.get(0).getDatahoraCaptacao()) + " até " + new SimpleDateFormat("dd-MM-yyyy").format(precipitacao.get(precipitacao.size() - 1).getDatahoraCaptacao()) + ").pdf");
+
+    return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF).body(new InputStreamResource(bis));
+
+}
+```
+Esse é um método de um controller que utiliza a anotação `@GetMapping` para mapear a URL "/Precipitacao/pdf/{estNome}/{estEstado}/{estDTinicial}/{estDTfinal}" para um relatório em formato PDF.
+
+O método retorna um objeto `ResponseEntity` que contém um `InputStreamResource` que representa o arquivo PDF que será retornado ao usuário. Além disso, o método utiliza a anotação `@PathVariable` para obter os valores dos parâmetros `estNome`, `estEstado`, `estDTinicial` e `estDTfinal` a partir da URL e, em seguida, realiza uma série de operações em cima desses parâmetros.
+
+Primeiramente, são realizadas operações de substituição de caracteres "*" por espaços em branco nos parâmetros do `@PathVariable`. 
+
+Em seguida, é realizada uma consulta no banco de dados através do objeto `precipitacaorepository` para recuperar uma lista de dados de precipitação que correspondem aos parâmetros especificados na URL.
+
+A lista de dados é então percorrida para realizar uma verificação e atualização dos valores de precipitação total (caso estejam nulos).
+
+Em seguida, o método utiliza um objeto `PdfPrecipitacao` (o código anterior) para exportar um arquivo PDF a partir da lista de dados de precipitação obtida. Este objeto é responsável por criar e popular o arquivo PDF.
+
+Por fim, são definidos os cabeçalhos HTTP e os metadados do arquivo PDF, e o `InputStreamResource` é retornado no objeto `ResponseEntity`. O arquivo PDF é então baixado pelo cliente em seu navegador com o nome de arquivo especificado nos cabeçalhos HTTP.
 
 [Veja mais detalhes](https://github.com/SoSoJigsaw/bertoti/blob/main/Metodologia/Detalhes%20das%20Contribui%C3%A7%C3%B5es/RelatoriosPDF.md)
 
@@ -222,6 +275,50 @@ Ainda no back-end, fui responsável por gerar os relatórios em PDF dos dados me
 ### 3. Geração de PDFs dos gráficos
 No front-end, eu ajudei em partes na estilização das páginas. No entanto, fui responsável por criar o método que gerava o PDF dos gráficos. Para isso: 
 - eu usei uma biblioteca do JavaScript chamada jsPDF, que estilizou o PDF e incluiu o gráfico nele, gráfico esse que foi convertido de elemento canvas HTML em um arquivo de imagem PNG e possibilitou dentro do mesmo método o download em PDF 
+
+```javascript
+function jsGraficosPDF(chart1, chart2, tela) {
+
+    const canvas = document.getElementById(chart1);
+    const canvas2 = document.getElementById(chart2);
+
+    //criando a imagem a partir do gráfico
+
+    const canvasImage = canvas.toDataURL('image/png', 1);
+    const canvasImage2 = canvas2.toDataURL('image/png', 1);
+
+    //variáveis para o texto do PDF
+
+    var estado = document.getElementById('estado');
+    var estacao = document.getElementById('estacao');
+    var dataMin = document.getElementById('dtMin');
+    var dataMax = document.getElementById('dtMax');
+
+    //passando a imagem para o pdf
+
+    let pdf = new jsPDF('landscape');
+    pdf.setFontSize(24);
+    pdf.setFont('helvetica', 'bold');
+    pdf.text(15, 15, ["Estação " + estacao.innerText + ", Estado de " + estado.innerText, " "]);
+    pdf.setFont('helvetica', '');
+    pdf.text(15, 15, [" ", "Dados de " + dataMin.innerText + " até " + dataMax.innerText]);
+
+    pdf.addImage(canvasImage, 'PNG', 10, 35, 275, 150);
+    pdf.addPage();
+    pdf.addImage(canvasImage2, 'PNG', 10, 30, 275, 150);
+    pdf.save('Gráficos ' + tela + ' (' + estacao.innerText + ').pdf');
+
+}
+```
+O código JavaScript `downloadPDF.js` é uma função chamada `jsGraficosPDF` que é responsável por gerar um arquivo PDF a partir de dois gráficos gerados em um página da web.
+
+A função recebe três parâmetros: `chart1`, `chart2` e `tela`. `chart1` e `chart2` são os IDs dos elementos HTML que contém os gráficos que serão incluídos no PDF, e tela é um valor de texto que será incluído no nome do arquivo PDF gerado.
+
+A função começa obtendo os elementos HTML canvas que contêm os gráficos a partir dos IDs passados como parâmetro. Em seguida, ela usa o método `toDataURL` do objeto canvas para gerar uma imagem em formato PNG a partir do conteúdo do gráfico.
+
+Em seguida, a função obtém outros elementos HTML que contém informações sobre a estação, o estado e o intervalo de datas apresentados nos gráficos. Essas informações são usadas para criar um cabeçalho no arquivo PDF que será gerado.
+
+Finalmente, a função usa a biblioteca `jsPDF` para criar um novo objeto PDF e adicionar as imagens dos gráficos e o texto do cabeçalho a ele. O PDF resultante é salvo com um nome de arquivo baseado nas informações da estação e do intervalo de datas, e a função retorna o objeto PDF.
 
 [Veja mais detalhes](https://github.com/SoSoJigsaw/bertoti/blob/main/Metodologia/Detalhes%20das%20Contribui%C3%A7%C3%B5es/PDFsGraficos.md)
 
