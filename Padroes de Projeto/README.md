@@ -26,16 +26,16 @@
       <td>Permite o desacoplamento entre o sujeito observado e os observadores, permitindo que diferentes objetos sejam notificados de mudanças de estado sem que precisem conhecer uns aos outros.</td>
     </tr>
     <tr>
-      <td>Singleton</td>
-      <td>Diversas instâncias da mesma classe</td>
-      <td>Garante que uma classe tenha apenas uma instância e fornece um ponto global de acesso para ela.</td>
-      <td>Resolve o problema de garantir que uma classe tenha apenas uma instância, útil quando é necessário compartilhar uma única instância em todo o sistema.</td>
-    </tr>
-    <tr>
       <td>Composite</td>
       <td>Tratamento diversificado de classes</td>
       <td>Permite que objetos sejam agrupados em estruturas de árvore para representar hierarquias parte-todo. Os clientes podem tratar objetos individuais e composições de forma uniforme.</td>
       <td>Resolve o problema de tratar objetos individuais e coleções de objetos de maneira uniforme, permitindo que os clientes sejam indiferentes à diferença entre objetos individuais e composições.</td>
+    </tr>
+    <tr>
+      <td>Singleton</td>
+      <td>Diversas instâncias da mesma classe</td>
+      <td>Garante que uma classe tenha apenas uma instância e fornece um ponto global de acesso para ela.</td>
+      <td>Resolve o problema de garantir que uma classe tenha apenas uma instância, útil quando é necessário compartilhar uma única instância em todo o sistema.</td>
     </tr>
     <tr>
       <td>Facade</td>
