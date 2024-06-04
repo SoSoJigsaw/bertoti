@@ -1,20 +1,17 @@
 # Script de automação do povoamento do banco
 
-<a name="voltar"></a>
-[1. automacão.py](#automacao)
+[1. automacão.py](# automacao)
 
-[2. leituraDfs.py](#leituraDfs)
+[2. leituraDfs.py](# leituraDfs)
 
-[3. cleaningData.py](#cleaningData)
+[3. cleaningData.py](# cleaningData)
 
-[4. cabeçalho.py](#cabecalho)
+[4. cabeçalho.py](# cabecalho)
 
-[5. conexaoBD.py](#conexaoBD)
+[5. conexaoBD.py](# conexaoBD)
 
-[6. runFunctions.py](#runFunctions)
+[6. runFunctions.py](# runFunctions)
 
-
-<a name="automacao"></a>
 ## automação.py
 
 ```python
@@ -24,34 +21,40 @@ from datetime import date
 import zipfile
 import shutil
 import logging
+
 ```
-O módulo `os` foi usado para realizar operações no sistema operacional, como criação de diretórios e acesso a arquivos. O módulo `requests` foi utilizado para fazer solicitações HTTP, para puxar os dados meteorológicos de uma base de dados em um servidor web. "datetime" foi usado para lidar com datas, pois que no método que fazia o download dos dados passava-se a data como parâmetro para baixar os dados de um determinado ano. `zipfile` e `shutil` foram usados para extrair arquivos zip e manipular os arquivos e diretórios. Por fim, `logging` foi usado para criar um arquivo de log para registro de eventos, seja execuções bem-sucedidas ou quando um erro foi lançado. 
+
+O módulo `os` foi usado para realizar operações no sistema operacional, como criação de diretórios e acesso a arquivos. O módulo `requests` foi utilizado para fazer solicitações HTTP, para puxar os dados meteorológicos de uma base de dados em um servidor web. "datetime" foi usado para lidar com datas, pois que no método que fazia o download dos dados passava- se a data como parâmetro para baixar os dados de um determinado ano. `zipfile` e `shutil` foram usados para extrair arquivos zip e manipular os arquivos e diretórios. Por fim, `logging` foi usado para criar um arquivo de log para registro de eventos, seja execuções bem- sucedidas ou quando um erro foi lançado.
 
 ```python
 class Automacao:
-    
+
     logging.basicConfig(filename="log.txt", level=logging.DEBUG,
                         format="%(asctime)s %(message)s", filemode="a")
+
 ```
-Essa parte do código define a classe `Automacao`. O método `logging.basicConfig` é chamado para configurar o arquivo de log para registro de eventos a partir da execução do código, incluindo execuções bem-sucedidas e erros tratados. Especificamente, o arquivo `log.txt` é criado com o nível de registro "DEBUG". O formato do registro é definido para incluir a data e hora em que o registro foi feito e a mensagem registrada.
+
+Essa parte do código define a classe `Automacao`. O método `logging.basicConfig` é chamado para configurar o arquivo de log para registro de eventos a partir da execução do código, incluindo execuções bem- sucedidas e erros tratados. Especificamente, o arquivo `log.txt` é criado com o nível de registro "DEBUG". O formato do registro é definido para incluir a data e hora em que o registro foi feito e a mensagem registrada.
 
 ```python
 def download_df(self, ano: int):
     url = "https://portal.inmet.gov.br/uploads/dadoshistoricos/{}.zip".format(ano)
     endereco = os.path.join("DF","{}.zip".format(ano))
     try:
-        os.mkdir("DF/{}".format(ano))   
+        os.mkdir("DF/{}".format(ano))
     except:
         shutil.rmtree(f"DF/{ano}", ignore_errors=False, onerror=None)
         os.mkdir("DF/{}".format(ano))
     status = requests.get(url)
     if status.status_code == requests.codes.OK:
         with open(endereco, "wb") as novo_arquivo:
-            novo_arquivo.write(status.content) 
+            novo_arquivo.write(status.content)
     else:
         status.raise_for_status()
     return
+
 ```
+
 O método `download_df` é responsável por fazer o download do arquivo zip correspondente aos dados meteorológicos históricos do ano especificado pelo parâmetro `ano`. A variável `url` é criada para especificar a URL do arquivo zip no site do INMET. A variável `endereco` é criada para especificar o caminho completo onde o arquivo zip será salvo.
 
 Em seguida, o método tenta criar um diretório com o nome do ano especificado. Se o diretório já existir, ele é removido e criado novamente. Isso é feito para garantir que o diretório esteja vazio antes de salvar o arquivo zip.
@@ -66,13 +69,13 @@ def extract(self, ano: int):
     os.remove("DF/{}.zip".format(ano))
     print("{} Extraido".format(ano))
     return
+
 ```
+
 O método `extract` é responsável por extrair o arquivo zip baixado anteriormente para o diretório especificado. Ele usa o módulo `zipfile` para abrir o arquivo zip.
 
-[Voltar ao topo](#voltar)
+[Voltar ao topo](# voltar)
 
-
-<a name="leituraDfs"></a>
 ## leituraDfs.py
 
 ```python
@@ -87,8 +90,10 @@ class LeituraDfs:
 
     logging.basicConfig(filename="log.txt", level=logging.DEBUG,
                         format="%(asctime)s %(message)s", filemode="a")
-```  
-Nesse trecho do código, é importado as bibliotecas que serão utilizadas e criado a classe LeituraDfs. É também configurado o `logging`, que irá registrar informações sobre o que está acontecendo no programa. 
+
+```
+
+Nesse trecho do código, é importado as bibliotecas que serão utilizadas e criado a classe LeituraDfs. É também configurado o `logging`, que irá registrar informações sobre o que está acontecendo no programa.
 
 ```python
 def leitura_dfs(self, ano: str):
@@ -100,13 +105,15 @@ def leitura_dfs(self, ano: str):
         try:
 
             # Path dos dataframes
-            files = glob.glob(fr"C:\Users\**\Iacit\CSVs\DF\{ano}\*.csv", recursive=True)
+            files = glob.glob(fr"C:\Users\** \Iacit\CSVs\DF\{ano}\* .csv", recursive=True)
 
             i = 1
             for f in files:
-                df = pd.read_csv(f, sep=';', encoding='latin-1', on_bad_lines='skip')
-                df1 = pd.read_csv(f, sep=';', encoding='latin-1', skiprows=[0, 1, 2, 3, 4, 5, 6, 7], on_bad_lines='skip')
+                df = pd.read_csv(f, sep=';', encoding='latin- 1', on_bad_lines='skip')
+                df1 = pd.read_csv(f, sep=';', encoding='latin- 1', skiprows=[0, 1, 2, 3, 4, 5, 6, 7], on_bad_lines='skip')
+
 ```
+
 Neste trecho do código, é definido a função `leitura_dfs` que recebe o ano como parâmetro. É criada uma instância da classe `ConexaoBD`. Depois, é chamado o método `conectar_banco` para realizar a conexão com o banco de dados. Em seguida, é definido o caminho dos arquivos CSV utilizando o método `glob.glob`. Iteramos sobre cada arquivo CSV no diretório, e lemos os dados utilizando a biblioteca `pandas`: o parâmetro `sep` define o separador utilizado no arquivo CSV, o parâmetro `encoding` define a codificação utilizada no arquivo CSV, e o parâmetro `on_bad_lines` define a ação a ser tomada caso ocorra algum erro na leitura do arquivo. No segundo `pd.read_csv`, foi definido que as primeiras 8 linhas serão puladas, pois que nelas não contêm dados relevantes.
 
 ```python
@@ -116,7 +123,9 @@ Neste trecho do código, é definido a função `leitura_dfs` que recebe o ano c
                 # Dando merge nos dataframes
                 df = df1.assign(key=1).merge(df[['CODIGO (WMO)']].assign(key=1), on='key').drop('key', axis=1)
                 del df1
+
 ```
+
 Neste trecho de código, foi criada uma coluna com o código da estação meteorológica utilizando a função `loc`, e foi atribuído o valor a coluna a partir da segunda linha da primeira coluna (B1) do arquivo CSV. Em seguida, foi dado um merge nos dataframes `df` e `df1`, utilizando a coluna criada anteriormente. Por fim, foi excluído a variável `df1` para liberar memória.
 
 ```python
@@ -127,25 +136,28 @@ Neste trecho de código, foi criada uma coluna com o código da estação meteor
 
                 cbd.povoar_banco(df.getRad(), 'radiacao_global')
                 cbd.povoar_banco(df.getPrecip(), 'precipitacao')
-```                
-O trecho `cleaningData = CleaningData()` cria uma instância da classe `CleaningData` para tratar os dados antes de serem povoados no banco de dados. 
+
+```
+
+O trecho `cleaningData = CleaningData()` cria uma instância da classe `CleaningData` para tratar os dados antes de serem povoados no banco de dados.
 
 O método `tratamento_dfs(df)` recebe um DataFrame como entrada e retorna o DataFrame tratado. Esse tratamento envolve a remoção de linhas e colunas desnecessárias, a conversão de tipos de dados, a limpeza de valores faltantes e a renomeação de colunas.
 
 Os DataFrames tratados são povoados no banco de dados por meio dos métodos `povoar_banco(df.getRad(), 'radiacao_global')`, `povoar_banco(df.getPrecip(), 'precipitacao')`, `povoar_banco(df.getVento(), 'vento')`, `povoar_banco(df.getAtm(), 'pressao_atmosferica')`, `povoar_banco(df.getTemp(), 'temperatura')` e `povoar_banco(df.getUmi(), 'umidade')`, que recebem o DataFrame tratado e o nome da tabela no banco de dados que será populada.
 
-[Voltar ao topo](#voltar)
+[Voltar ao topo](# voltar)
 
-
-<a name="cleaningData"></a>
 ## cleaningData.py
+
 O cleaningData.py é um módulo que contém uma classe CleaningData que possui métodos para tratamento de dados em um DataFrame.
 
 ```python
 import pandas as pd
 import logging
 from pandas.core.frame import DataFrame
+
 ```
+
 O código começa importando as bibliotecas `pandas`, `logging` e `DataFrame`. A biblioteca `pandas` é utilizada para manipulação de dados em um DataFrame. Já a biblioteca `logging` é utilizada para exibir mensagens de depuração. Por fim, o `DataFrame` é importado para ser utilizado como type de algumas variáveis do código.
 
 ```python
@@ -169,36 +181,32 @@ self.__temp = temp
 
 self.__umi = umi
 
-
 def getRad(self):
 
 return self.__rad
-
 
 def getPrecip(self):
 
 return self.__precip
 
-
 def getVento(self):
 
 return self.__vento
-
 
 def getAtm(self):
 
 return self.__atm
 
-
 def getTemp(self):
 
 return self.__temp
 
-
 def getUmi(self):
 
 return self.__umi
+
 ```
+
 A seguir é definida a classe `CleaningData`, que possui um construtor com seis argumentos, que são atributos privados da classe.
 Os métodos `getRad()`, `getPrecip()`, `getVento()`, `getAtm()`, `getTemp()` e `getUmi()` são utilizados para retornar os valores dos atributos privados da classe.
 
@@ -267,7 +275,6 @@ df['DATAHORA DE CAPTAÇÃO'] = pd.to_datetime(df['DATAHORA DE CAPTAÇÃO'], erro
 
 df = df.rename({'CODIGO (WMO)': 'cod_wmo', 'RADIACAO GLOBAL (Kj/m²)': 'radiacao_global', (...) }, axis=1)
 
-
 # Desmembrando os dataframes por tabela do banco
 
 cleaningData = CleaningData()
@@ -275,7 +282,9 @@ cleaningData = CleaningData()
 df = cleaningData.desmembrar_dfs(df)
 
 return df
+
 ```
+
 O método `tratamento_dfs` recebe um DataFrame como parâmetro e realiza diversas operações de limpeza nos dados.
 
 O primeiro passo é desativar o modo `chained assignment` do `pandas`, que evita que o pandas emita um aviso quando uma operação de atribuição é realizada.
@@ -284,7 +293,7 @@ Em seguida, o método apaga as linhas duplicadas do DataFrame usando o método `
 
 O próximo passo é percorrer todas as colunas do DataFrame e substituir valores com vírgula por valores com ponto, utilizando o método `replace()` da biblioteca `pandas`. Isso foi feito para que o dataframe fosse formato conforme as regras de sintaxe do banco de dados, já que esses dados foram definidos no banco como tipo float, e o banco reconhece o tipo float utilizando ponto ao invés de vírgulas.
 
-Depois é feito o ajuste da coluna Data para o padrão brasileiro. Isso é feito utilizando o método `pd.to_datetime()` para converter a coluna em formato de data. 
+Depois é feito o ajuste da coluna Data para o padrão brasileiro. Isso é feito utilizando o método `pd.to_datetime()` para converter a coluna em formato de data.
 
 Em seguida, o método `dt.strftime()` é utilizado para formatar a data no padrão DD/MM/YYYY.
 
@@ -332,21 +341,22 @@ dfFiltrado.__vento = df[['cod_wmo', 'vento_velocidade', 'vento_rajada_max',
 dfFiltrado.__precip = df[['cod_wmo', 'precipitacaototal', 'datahora_captacao']]
 
 return dfFiltrado
+
 ```
 
-O método `desmembrar_dfs()` recebe como parâmetro um objeto do tipo `DataFrame`, e então tem a função de desmembrá-lo em diversos DataFrames separados, salvando seus valores em atributos privados da classe que ele pertence, o `CleaningData()`. Isso é feito com a intenção de facilitar o processo de persintência dos dados no banco de dados quando esses atributos forem acessados pela classe de povoamento do banco de dados (`conexaoBD()`).
+O método `desmembrar_dfs()` recebe como parâmetro um objeto do tipo `DataFrame`, e então tem a função de desmembrá- lo em diversos DataFrames separados, salvando seus valores em atributos privados da classe que ele pertence, o `CleaningData()`. Isso é feito com a intenção de facilitar o processo de persintência dos dados no banco de dados quando esses atributos forem acessados pela classe de povoamento do banco de dados (`conexaoBD()`).
 
-[Voltar ao topo](#voltar)
+[Voltar ao topo](# voltar)
 
-
-<a name="cabecalho"></a>
 ## cabeçalho.py
 
 ```python
 import pandas as pd
 import logging
 from pandas.core.frame import DataFrame
+
 ```
+
 O trecho de código começa com as importações necessárias para o funcionamento do código: `import pandas as pd` é usado para a manipulação de dados em formato de tabela, `import logging` é utilizado para registro de eventos em um arquivo de log, e `from pandas.core.frame import DataFrame` é usado para especificar o tipo DataFrame, que é um tipo de objeto que permite a manipulação de dados em formato de tabela.
 
 ```python
@@ -363,7 +373,9 @@ self.__estacao = estacao
 def getEstacao(self):
 
 return self.__estacao
+
 ```
+
 Nesse trecho de código, é definida a classe `Cabecalho`, que possui um método construtor `__init__` que recebe um parâmetro `estacao` e o armazena em um atributo privado `__estacao`. Em seguida, é definido um método `getEstacao` que retorna o valor do atributo privado `__estacao`.
 
 ```python
@@ -412,10 +424,12 @@ except:
 logging.debug("- ERRO: tratamento do cabeçalho não pode ser concluída (CSVs/cabeçalho.py)")
 
 raise
-```
-O método `tratamento_cabecalho` recebe um objeto DataFrame `df` e realiza uma série de transformações nele. Primeiro, é definido que as mensagens de registro de eventos serão armazenadas em um arquivo de log chamado `log.txt`. Em seguida, é criada uma nova coluna no DataFrame `df` para cada um dos seguintes campos: REGIAO, UF, ESTACAO, CODIGO (WMO), LATITUDE, LONGITUDE, ALTITUDE e DATA DE FUNDACAO. Os valores dessas colunas são extraídos do DataFrame `df` de acordo com as posições de linha e coluna especificadas. Em seguida, as linhas duplicadas do DataFrame `df` são removidas e as vírgulas extras são substituídas por pontos. 
 
-Além disso, a coluna "DATA DE FUNDACAO" é convertida para o tipo `datetime`. 
+```
+
+O método `tratamento_cabecalho` recebe um objeto DataFrame `df` e realiza uma série de transformações nele. Primeiro, é definido que as mensagens de registro de eventos serão armazenadas em um arquivo de log chamado `log.txt`. Em seguida, é criada uma nova coluna no DataFrame `df` para cada um dos seguintes campos: REGIAO, UF, ESTACAO, CODIGO (WMO), LATITUDE, LONGITUDE, ALTITUDE e DATA DE FUNDACAO. Os valores dessas colunas são extraídos do DataFrame `df` de acordo com as posições de linha e coluna especificadas. Em seguida, as linhas duplicadas do DataFrame `df` são removidas e as vírgulas extras são substituídas por pontos.
+
+Além disso, a coluna "DATA DE FUNDACAO" é convertida para o tipo `datetime`.
 
 ```python
 def organizar_cabecalho(self, df: DataFrame):
@@ -431,13 +445,13 @@ dfEstacao.__estacao = df[['cod_wmo', 'estacao_nome', 'estacao_regiao', 'estacao_
 'estacao_altitude', 'estacao_datafundacao']]
 
 return dfEstacao
+
 ```
+
 O método `organizar_cabecalho` é chamado para organizar o DataFrame `df` de acordo com a tabela do banco de dados. O método recebe um objeto DataFrame `df` e cria um novo DataFrame `dfEstacao` com as colunas "cod_wmo", "estacao_nome", "estacao_regiao", "estacao_estado", "estacao_longitude", "estacao_latitude", "estacao_altitude" e "estacao_datafundacao". Em seguida, o DataFrame `dfEstacao` é retornado.
 
-[Voltar ao topo](#voltar)
+[Voltar ao topo](# voltar)
 
-
-<a name="conexaoBD"></a>
 ## conexaoBD.py
 
 ```python
@@ -453,9 +467,11 @@ class ConexaoBD:
 
     logging.basicConfig(filename="log.txt", level=logging.DEBUG,
                         format="%(asctime)s %(message)s", filemode="a")
+
 ```
+
 O código começa importando as bibliotecas. Em seguida, é definida a classe `ConexaoBD`, que representa a conexão com o banco de dados PostgreSQL. A classe tem um atributo privado `__db`, que é uma instância da classe `create_engine`, que é responsável por criar uma conexão com o banco de dados.
-A linha `logging.basicConfig` configura o log de eventos da aplicação, registrando execuções bem-sucedidas e também erros tratados.
+A linha `logging.basicConfig` configura o log de eventos da aplicação, registrando execuções bem- sucedidas e também erros tratados.
 
 ```python
 def __int__(self, db):
@@ -463,8 +479,10 @@ def __int__(self, db):
 
     def getDb(self):
         return self.__db
+
 ```
-Esses métodos são responsáveis por criar um objeto de conexão com o banco de dados e disponibilizá-lo para as outras classes da aplicação. O método `__int__` é um método especial de inicialização da classe, que recebe o objeto de conexão como parâmetro e o armazena no atributo `__db`. Já o método getDb retorna o objeto de conexão armazenado em `__db`.
+
+Esses métodos são responsáveis por criar um objeto de conexão com o banco de dados e disponibilizá- lo para as outras classes da aplicação. O método `__int__` é um método especial de inicialização da classe, que recebe o objeto de conexão como parâmetro e o armazena no atributo `__db`. Já o método getDb retorna o objeto de conexão armazenado em `__db`.
 
 ```python
 def conectar_banco(self):
@@ -477,10 +495,12 @@ def conectar_banco(self):
         else:
             logging.debug("- ERRO NA CONEXÃO DO BANCO: verifique se o banco está conectado e tente novamente")
             sys.exit(0)
+
 ```
+
 Esse método verifica se a conexão com o banco de dados foi estabelecida com sucesso. Ele cria uma instância da classe `ConexaoBD` e verifica se é possível executar uma consulta SQL no banco de dados. Se a consulta retornar um valor não nulo, significa que a conexão foi estabelecida com sucesso. Caso contrário, é registrado um erro no arquivo de log e o programa é interrompido com o método `sys.exit`.
 
-```python
+````python
 def povoar_banco(self, df: DataFrame, tabela: str):
 
 try:
@@ -497,82 +517,14 @@ f"datahora_captacao DESC LIMIT 1"
 
 try:
 
-df = df[~(df['datahora_captacao'] <= conexaoBD.getDb().execute(sql).scalar())]
+df = df[~(df['datahora_captacao']
 
-except TypeError:
-
-pass
-
-if not df.empty:
-
-df.to_sql(tabela, conexaoBD.getDb(), if_exists='append', index=False)
-
-print(f"Há atualizações nos dados da Estação {cod_wmo} em {tabela}")
-
-else:
-
-print(f"Não há atualizações nos dados da Estação {cod_wmo} em {tabela}")
-
-except:
-
-logging.debug("- ERRO: falha na tentativa de povoar o banco com os dados dos CSVs (CSVs/conexaoBD.py)")
-
-raise
-```
-O método `povoar_banco` é responsável por povoar a tabela de dados meteorológicos no banco de dados PostgreSQL com os dados contidos em um DataFrame `pandas`. Essa função recebe como parâmetros o DataFrame `df` que contém os dados a serem inseridos no banco de dados, e a string tabela que especifica o nome da tabela de destino no banco de dados.
-
-A função começa criando uma instância da classe `ConexaoBD`, que estabelece a conexão com o banco de dados. Em seguida, ela extrai o código WMO da primeira linha do DataFrame `df` e usa esse código para construir uma consulta SQL que recupera o registro mais recente da tabela especificada no banco de dados.
-
-Se a tabela não estiver vazia, a função compara a data/hora de captura dos dados do DataFrame com a data/hora do registro mais recente na tabela do banco de dados. Qualquer linha do DataFrame com uma data/hora de captura maior que a data/hora do registro mais recente na tabela é considerada uma nova atualização de dados e é inserida na tabela do banco de dados usando o método `to_sql` do `pandas`.
-
-Se não houver dados novos no DataFrame, a função imprime uma mensagem informando que não há atualizações para essa estação na tabela especificada.
-
-Caso ocorra uma exceção em qualquer ponto da execução da função, a exceção é capturada e uma mensagem de erro é registrada no log, informando que houve uma falha na tentativa de povoar o banco de dados com os dados do DataFrame. A exceção é então relançada para ser tratada por chamadores da função.
-
-```python
-def estacao_banco(self, df: DataFrame):
-
-try:
-
-conexaoBD = ConexaoBD()
-
-try:
-
-df.to_sql('estacao', conexaoBD.getDb(), if_exists='append', index=False)
-
-except sqlalchemy.exc.IntegrityError:
-
-print('Erro de integridade, esse código_wmo já existe no banco')
-
-pass
-
-except:
-
-logging.debug("- ERRO: falha na tentativa de atualizar as estações cadastradas no banco (CSVs/conexaoBD.py)")
-
-raise
-```
-O método `estacao_banco` é responsável por atualizar a tabela estacao do banco de dados com informações de estações meteorológicas presentes no DataFrame `df`.
-
-Primeiro, ele cria uma instância da classe `ConexaoBD` para estabelecer a conexão com o banco de dados.
-
-Em seguida, o método tenta inserir os dados da estação presentes em `df` na tabela estacao do banco de dados usando o método `to_sql` do `pandas`. O parâmetro `if_exists` é definido como `append`, o que significa que os dados serão adicionados à tabela existente ao invés de substituí-la.
-
-Se houver uma violação de integridade na inserção dos dados na tabela (por exemplo, se já houver uma estação com o mesmo codigo_wmo na tabela), o método `to_sql` lançará uma exceção do tipo `IntegrityError`. Nesse caso, o método imprime uma mensagem de erro e passa para a próxima estação, sem interromper a execução do programa.
-
-Por fim, se ocorrer algum erro durante a execução do método, ele registra uma mensagem de erro no arquivo de log e relança a exceção para ser tratada em outro lugar do programa.
-
-[Voltar ao topo](#voltar)
-
-
-<a name="runFunctions"></a>
 ## runFunctions.py
 
 ```python
 from leituraDfs import LeituraDfs
 
 from automacao import Automacao
-
 
 class RunFunctions:
 
@@ -588,7 +540,9 @@ ldfs.leitura_cabecalho('2022')
 print("\nIniciando povoamento das demais tabelas...\n")
 
 ldfs.leitura_dfs('2022')
-```
+
+````
+
 O arquivo `runFunctions.py` é o ponto de entrada do script principal, responsável por chamar as outras classes e funções necessárias para executar as tarefas de download, leitura e povoamento do banco de dados.
 
 O script começa importando as classes `LeituraDfs` e `Automacao` dos módulos `leituraDfs` e `automacao`, respectivamente.
@@ -603,6 +557,4 @@ Depois que o download é concluído, a função `leitura_cabecalho()` da instân
 
 Cada etapa do processo é impressa na tela para que o usuário saiba em que parte do script o processo se encontra.
 
-[Voltar ao topo](#voltar)
-
-
+[Voltar ao topo](# voltar)
